@@ -40,10 +40,6 @@ static byte mymac[] = { 0x74,0x69,0x69,0x2D,0x30,0x31 }; // ethernet mac address
 #define LCD_X     84
 #define LCD_Y     48
 
-/****** RX / TX VALUES ******/
-#define RXBAUDRATE 9600
-#define RXPIN      2
-
 /******** FUNCTIONS *********/
 #define LED_R_ON digitalWrite(LED_R, HIGH)
 #define LED_R_OFF digitalWrite(LED_R, LOW)
@@ -76,10 +72,6 @@ char dat[4];
 char disp_tab[]={
   '0','1','2','3','4','5','6','7','8','9'};
 char buf[72]="A_simple_example_of_interfacing_with_the_84_x_48_pixel_Nokia_3310_LCD!!";
-
-// RX / TX variables
-String inputString = "";         // a string to hold incoming data
-boolean stringComplete = false;  // whether the string is complete
 
 static const byte ASCII[][5] =
 {  {    0x00, 0x00, 0x00, 0x00, 0x00    } // 20  
@@ -245,13 +237,6 @@ void inline ethernetInit(void) {
   ether.registerPingCallback(gotPinged);
 }
 
-void inline rxInit() {
-  vw_set_ptt_inverted(true); // Required by the RF module
-  vw_setup(RXBAUDRATE);      // bps connection speed
-  vw_set_rx_pin(RXPIN);      // Arduino pin to connect the receiver data pin
-  vw_rx_start();             // Start the receiver
-}
-
 // Performed actions while receive a UDP packet
 void udpHandler(uint16_t dport, uint8_t * sip, const char * message, uint16_t len) {
   Serial.println("Packet received");
@@ -301,9 +286,6 @@ void setup(void) {
   
   // Ethernet
   ethernetInit();
-  
-  // RX / TX
-  //rxInit();
   
   #if DEBUG
     // Serial if debug mode enabled
