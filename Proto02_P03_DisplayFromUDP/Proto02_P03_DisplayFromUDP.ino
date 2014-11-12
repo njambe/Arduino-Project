@@ -203,7 +203,7 @@ void LcdInitialise(void) {
   LcdWrite(LCD_C, 0x0C );
 }
 
-void LcdString(char *characters) {
+void LcdString(const char *characters) {
   while (*characters) {
     LcdCharacter(*characters++);
   }
@@ -243,6 +243,11 @@ void udpHandler(uint16_t dport, uint8_t * sip, const char * message, uint16_t le
   gotoXY(0,5);
   LcdString("In : ");
   LcdString(itoa(++nbrecv, buf, 10));
+  
+  gotoXY(0,2);
+  LcdString("                        ");
+  gotoXY(0,2);
+  LcdString(message);
 }
 
 void sendServer() {
@@ -262,6 +267,10 @@ static void gotPinged (byte* ptr) {
   gotoXY(0,5);
   LcdString("In : ");
   LcdString(itoa(++nbrecv, buf, 10));
+}
+
+void decrypt() {
+  
 }
 
 void setup(void) {  
