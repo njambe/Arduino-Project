@@ -41,18 +41,18 @@ static byte mymac[] = { 0x74,0x69,0x69,0x2D,0x30,0x31 }; // ethernet mac address
 #define LCD_Y     48
 
 /******** FUNCTIONS *********/
-#define LED_R_ON digitalWrite(LED_R, HIGH)
+#define LED_R_ON  digitalWrite(LED_R, HIGH)
 #define LED_R_OFF digitalWrite(LED_R, LOW)
-#define LED_Y_ON digitalWrite(LED_Y, HIGH)
+#define LED_Y_ON  digitalWrite(LED_Y, HIGH)
 #define LED_Y_OFF digitalWrite(LED_Y, LOW)
-#define LED_G_ON digitalWrite(LED_G, HIGH)
+#define LED_G_ON  digitalWrite(LED_G, HIGH)
 #define LED_G_OFF digitalWrite(LED_G, LOW)
 
-#define CND_UP if (BUT_UP == HIGH)
-#define CND_DOWN if (BUT_DOWN == HIGH)
-#define CND_LEFT if (BUT_LEFT == HIGH)
-#define CND_RIGHT if (BUT_RIGHT == HIGH)
-#define CND_CENTER if (BUT_CENTER == HIGH)
+#define CND_UP     if (digitalRead(BUT_UP) == LOW)
+#define CND_DOWN   if (digitalRead(BUT_DOWN) == LOW)
+#define CND_LEFT   if (digitalRead(BUT_LEFT) == LOW)
+#define CND_RIGHT  if (digitalRead(BUT_RIGHT) == LOW)
+#define CND_CENTER if (digitalRead(BUT_CENTER) == LOW)
 
 #define WHILE_UP_PRESS      while (digitalRead(BUT_UP) == LOW)
 #define WHILE_DOWN_PRESS    while (digitalRead(BUT_DOWN) == LOW)
@@ -246,6 +246,7 @@ void udpHandler(uint16_t dport, uint8_t * sip, const char * message, uint16_t le
 }
 
 void sendServer() {
+  Serial.println("Message sent");
   char data[22] = "Coucou";
   int len_data = 6;
   
